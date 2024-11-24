@@ -1,0 +1,33 @@
+<div class="container">
+  <h2>URL Encoder/Decoder</h2>
+
+  <mat-form-field class="full-width">
+    <mat-label>Enter text</mat-label>
+    <textarea matInput [(ngModel)]="inputText" rows="4" aria-label="Enter text"></textarea>
+    <button mat-icon-button matSuffix (click)="clearInput()" *ngIf="inputText">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <div class="button-group">
+    <button mat-raised-button color="primary" (click)="encodeUrl()">Encode</button>
+    <button mat-raised-button color="accent" (click)="decodeUrl()">Decode</button>
+    <button mat-raised-button color="warn" (click)="clearAll()">Clear All</button>
+  </div>
+
+  <mat-form-field class="full-width">
+    <mat-label>Encoded result</mat-label>
+    <textarea matInput [value]="encodedText" readonly rows="4" aria-label="Encoded result"></textarea>
+    <button mat-icon-button matSuffix (click)="copyToClipboard(encodedText)" *ngIf="encodedText">
+      <mat-icon>content_copy</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Decoded result</mat-label>
+    <textarea matInput [value]="decodedText" readonly rows="4" aria-label="Decoded result"></textarea>
+    <button mat-icon-button matSuffix (click)="copyToClipboard(decodedText)" *ngIf="decodedText">
+      <mat-icon>content_copy</mat-icon>
+    </button>
+  </mat-form-field>
+</div>

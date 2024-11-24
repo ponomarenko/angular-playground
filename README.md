@@ -1,6 +1,47 @@
-# AngularPlayground
+# Angular Playground
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.4.
+A modern Angular (v19) utility application showcasing various developer tools and encoders. This project serves as both a practical toolset and a demonstration of Angular best practices.
+
+## Features
+
+- **UUID Generator**
+  - Generates RFC 4122 compliant UUIDs
+  - Displays detailed UUID information and metadata
+  - Supports UUID validation and normalization
+  - One-click copy to clipboard functionality
+
+- **URL Encoder/Decoder**
+  - Encodes and decodes URLs
+  - Real-time encoding/decoding
+  - Clipboard integration
+  - Input validation and error handling
+
+## Technical Stack
+
+- Angular 19
+- Angular Material UI Components
+- RxJS
+- TypeScript 5.5
+- Angular CDK
+
+## Architecture Highlights
+
+- Standalone components architecture
+- Lazy-loaded routing
+- Material Design integration
+- Responsive layout
+- GitHub Pages deployment pipeline
+
+## Development Focus
+
+This project emphasizes:
+- Modern Angular patterns and practices
+- Type safety with strict TypeScript configuration
+- Component-based architecture
+- Responsive and accessible UI design
+- Automated deployment workflow
+
+The project serves as both a practical development tool and a reference implementation for Angular best practices, making it valuable for both utility purposes and educational reference.
 
 ## Development server
 
