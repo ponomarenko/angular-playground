@@ -1,0 +1,91 @@
+<div class="container">
+  <h2>Unix Timestamp Converter</h2>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Timestamp Converter</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field class="full-width">
+        <mat-label>Enter timestamp (supports s, ms, μs, ns)</mat-label>
+        <textarea matInput [(ngModel)]="inputTimestamp" (ngModelChange)="convertTimestamp()" rows="2"
+          placeholder="Leave empty to see current time"></textarea>
+        <button mat-icon-button matSuffix (click)="clearInput()" *ngIf="inputTimestamp">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <div class="current-time" [class.highlight]="!inputTimestamp">
+        <div class="timestamp-display">
+          <span class="current-value">{{ displayedTimestamp }}</span>
+          <button mat-icon-button (click)="copyToClipboard(displayedTimestamp.toString())">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="date-formats">
+        <div class="format-row" *ngFor="let format of dateFormats">
+          <span class="format-label">{{ format.label }}</span>
+          <span class="format-value">{{ format.value }}</span>
+          <button mat-icon-button (click)="copyToClipboard(format.value)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="info-card">
+    <mat-card-header>
+      <mat-card-title>About Unix Timestamp</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        A Unix timestamp represents time as a continuous count of seconds starting from
+        the Unix Epoch (January 1, 1970, 00:00:00 UTC). This format remains consistent
+        across all time zones, making it an essential tool for computer systems to track
+        and organize time-based data in both online and offline applications.
+      </p>
+
+      <h4>Common Time Intervals:</h4>
+      <table class="time-table">
+        <tr>
+          <th>Time Period</th>
+          <th>Seconds</th>
+        </tr>
+        <tr>
+          <td>Hour</td>
+          <td>3,600</td>
+        </tr>
+        <tr>
+          <td>Day</td>
+          <td>86,400</td>
+        </tr>
+        <tr>
+          <td>Week</td>
+          <td>604,800</td>
+        </tr>
+        <tr>
+          <td>Month (30.44 days)</td>
+          <td>2,629,743</td>
+        </tr>
+        <tr>
+          <td>Year (365.24 days)</td>
+          <td>31,556,926</td>
+        </tr>
+      </table>
+
+      <div class="warning-block">
+        <h4>Important Note</h4>
+        <p>
+          On January 19, 2038, the computing world will face the "Year 2038 Problem" -
+          a moment when 32-bit systems will reach their maximum Unix timestamp value.
+          To address this limitation, systems must transition to 64-bit time storage formats,
+          which will significantly extend the timestamp's usable range.
+        </p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>
