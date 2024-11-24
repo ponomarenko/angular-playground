@@ -1,6 +1,6 @@
 # Angular Playground
 
-A modern Angular (v19) utility application showcasing various developer tools and encoders. This project serves as both a practical toolset and a demonstration of Angular best practices.
+A modern Angular (v19) utility application providing various developer tools and encoders. This project serves as both a practical toolset and a demonstration of Angular best practices.
 
 ## Features
 
@@ -11,10 +11,22 @@ A modern Angular (v19) utility application showcasing various developer tools an
   - One-click copy to clipboard functionality
 
 - **URL Encoder/Decoder**
-  - Encodes and decodes URLs
+  - Encodes and decodes URLs using encodeURIComponent/decodeURIComponent
   - Real-time encoding/decoding
   - Clipboard integration
   - Input validation and error handling
+
+- **IP Location Lookup**
+  - Retrieves detailed IP information using ipinfo.io API
+  - Displays geographic and network details
+  - Supports custom IP lookups
+  - Responsive grid layout for information display
+
+- **Unix Timestamp Converter**
+  - Converts between Unix timestamps and human-readable dates
+  - Supports multiple timestamp formats (s, ms, μs, ns)
+  - Real-time updates
+  - Multiple date format displays (GMT, Local, ISO 8601, RFC 822/2822/3339)
 
 ## Technical Stack
 
@@ -22,7 +34,8 @@ A modern Angular (v19) utility application showcasing various developer tools an
 - Angular Material UI Components
 - RxJS
 - TypeScript 5.5
-- Angular CDK
+- Angular CDK (Clipboard, Component Dev Kit)
+- Standalone Components Architecture
 
 ## Architecture Highlights
 
@@ -31,38 +44,61 @@ A modern Angular (v19) utility application showcasing various developer tools an
 - Material Design integration
 - Responsive layout
 - GitHub Pages deployment pipeline
-
-## Development Focus
-
-This project emphasizes:
-- Modern Angular patterns and practices
-- Type safety with strict TypeScript configuration
+- Strict TypeScript configuration
 - Component-based architecture
-- Responsive and accessible UI design
-- Automated deployment workflow
 
-The project serves as both a practical development tool and a reference implementation for Angular best practices, making it valuable for both utility purposes and educational reference.
+## Development Setup
 
-## Development server
+1. Clone the repository
+2. Install dependencies:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```bash
+npm install
+```
 
-## Code scaffolding
+3. Start the development server:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+npm start
+```
 
-## Build
+Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Build and Deployment
 
-## Running unit tests
+Build the project for production:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm run build
+```
 
-## Running end-to-end tests
+The project is automatically deployed to GitHub Pages using GitHub Actions when changes are pushed to the main branch.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Testing
 
-## Further help
+Run unit tests:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm test
+```
+
+## Project Structure
+
+- Standalone components for each utility
+- Shared Material UI components
+- Reactive forms for user input
+- Service-based architecture for data handling
+- Comprehensive error handling
+- Clipboard integration across components
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
+
+## License
+
+This project is open source and available under the MIT License.
