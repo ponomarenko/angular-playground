@@ -1,6 +1,10 @@
 <div class="container">
   <h2>IP Location Lookup</h2>
 
+  <div class="info-message">
+    <p><strong>Note:</strong> This tool sends IP data to {{ API_BASE_URL }} for analysis. If the lookup fails, try adding this domain to your ad blocker's allowlist.</p>
+  </div>
+
   <mat-form-field class="full-width">
     <mat-label>Enter IP Address</mat-label>
     <input matInput [(ngModel)]="ipAddress" placeholder="Enter IP address">

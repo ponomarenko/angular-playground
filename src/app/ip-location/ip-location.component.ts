@@ -37,8 +37,8 @@ interface IpInfo {
   styleUrls: ['./ip-location.component.scss']
 })
 export class IpLocationComponent implements OnInit {
+  public readonly API_BASE_URL = 'https://ipinfo.io';
   private readonly API_TOKEN = '93b59d811e1b5f';
-  private readonly API_BASE_URL = 'https://ipinfo.io';
 
   ipAddress: string = '';
   ipInfo: IpInfo | null = null;
