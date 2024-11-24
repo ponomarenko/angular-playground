@@ -1,0 +1,47 @@
+.container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.error-message {
+  color: #f44336;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.ip-info-card {
+  margin-top: 20px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  strong {
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  span {
+    font-size: 1.1em;
+  }
+}

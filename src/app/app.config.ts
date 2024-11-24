@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app.routes';
 
@@ -11,6 +12,10 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({eventCoalescing: true}),
     provideRouter(routes),
     provideAnimationsAsync(),
-    importProvidersFrom(MatSnackBarModule, ClipboardModule)
+    provideHttpClient(),
+    importProvidersFrom(
+      MatSnackBarModule,
+      ClipboardModule
+    )
   ]
 };

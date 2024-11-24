@@ -1,0 +1,61 @@
+<div class="container">
+  <h2>IP Location Lookup</h2>
+
+  <mat-form-field class="full-width">
+    <mat-label>Enter IP Address</mat-label>
+    <input matInput [(ngModel)]="ipAddress" placeholder="Enter IP address">
+    <button mat-icon-button matSuffix (click)="lookupIp()" aria-label="Look up IP">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <div class="loading-spinner" *ngIf="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <div class="error-message" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <mat-card class="ip-info-card" *ngIf="ipInfo && !loading">
+    <mat-card-header>
+      <mat-card-title>IP Information</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>IP Address:</strong>
+          <span>{{ ipInfo.ip }}</span>
+        </div>
+        <div class="info-item">
+          <strong>City:</strong>
+          <span>{{ ipInfo.city }}</span>
+        </div>
+        <div class="info-item">
+          <strong>Region:</strong>
+          <span>{{ ipInfo.region }}</span>
+        </div>
+        <div class="info-item">
+          <strong>Country:</strong>
+          <span>{{ ipInfo.country }}</span>
+        </div>
+        <div class="info-item">
+          <strong>Location:</strong>
+          <span>{{ ipInfo.loc }}</span>
+        </div>
+        <div class="info-item">
+          <strong>Organization:</strong>
+          <span>{{ ipInfo.org }}</span>
+        </div>
+        <div class="info-item">
+          <strong>Postal:</strong>
+          <span>{{ ipInfo.postal }}</span>
+        </div>
+        <div class="info-item">
+          <strong>Timezone:</strong>
+          <span>{{ ipInfo.timezone }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
