@@ -30,7 +30,7 @@ A modern Angular (v19) utility application providing various developer tools and
 
 ## Technical Stack
 
-- Angular 19
+- Angular 20+
 - Angular Material UI Components
 - RxJS
 - TypeScript 5.5

@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { MatCardModule } from '@angular/material/card';
-import { CommonModule } from '@angular/common';
+
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatOptionModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -16,17 +16,16 @@ import { MatExpansionModule } from '@angular/material/expansion';
 @Component({
     selector: 'app-uuid',
     imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatButtonModule,
-        ReactiveFormsModule,
-        MatCardModule,
-        MatOptionModule,
-        MatExpansionModule
-    ],
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatOptionModule,
+    MatExpansionModule
+],
     templateUrl: './uuid.component.html',
     styleUrl: './uuid.component.scss'
 })

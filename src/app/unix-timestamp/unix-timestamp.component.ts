@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,14 +18,13 @@ interface DateFormat {
   selector: 'app-unix-timestamp',
   standalone: true,
   imports: [
-    CommonModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
     FormsModule
-  ],
+],
   templateUrl: './unix-timestamp.component.html',
   styleUrls: ['./unix-timestamp.component.scss']
 })
@@ -156,8 +155,6 @@ export class UnixTimestampComponent implements OnInit {
   }
 
   getSimpleUTCDate(date: Date): string {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
     return `${String(date.getUTCDate()).padStart(2, '0')}/${
       String(date.getUTCMonth() + 1).padStart(2, '0')}/${
       date.getUTCFullYear()} @ ${

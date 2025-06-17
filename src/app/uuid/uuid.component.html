@@ -6,71 +6,74 @@
     placeholder="Enter or generate UUID"
     aria-label="UUID input field"
     matTooltip="Enter UUID manually or use generate button"
-  />
-  <button
-    mat-icon-button
-    matSuffix
-    type="button"
-    *ngIf="uuid.invalid && canBeNormalized()"
-    (click)="normalizeUUID()"
-    aria-label="Normalize UUID"
-    matTooltip="Fix UUID format"
-  >
-    <mat-icon>format_align_justify</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    matSuffix
-    type="button"
-    (click)="generateUUID()"
-    aria-label="Generate new UUID"
-    matTooltip="Generate new random UUID"
-  >
-    <mat-icon>autorenew</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    matSuffix
-    type="button"
-    (click)="copyUUID()"
-    [disabled]="!uuid.valid"
-    aria-label="Copy UUID"
-    matTooltip="Copy UUID to clipboard"
-  >
-    <mat-icon>content_copy</mat-icon>
-  </button>
-  <mat-error *ngIf="uuid.invalid">Please enter a valid UUID</mat-error>
-  <mat-hint
-    >Click the refresh icon to generate or copy icon to copy UUID</mat-hint
-  >
-</mat-form-field>
+    />
+    @if (uuid.invalid && canBeNormalized()) {
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="normalizeUUID()"
+        aria-label="Normalize UUID"
+        matTooltip="Fix UUID format"
+        >
+        <mat-icon>format_align_justify</mat-icon>
+      </button>
+    }
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      (click)="generateUUID()"
+      aria-label="Generate new UUID"
+      matTooltip="Generate new random UUID"
+      >
+      <mat-icon>autorenew</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      (click)="copyUUID()"
+      [disabled]="!uuid.valid"
+      aria-label="Copy UUID"
+      matTooltip="Copy UUID to clipboard"
+      >
+      <mat-icon>content_copy</mat-icon>
+    </button>
+    @if (uuid.invalid) {
+      <mat-error>Please enter a valid UUID</mat-error>
+    }
+    <mat-hint
+      >Click the refresh icon to generate or copy icon to copy UUID</mat-hint
+      >
+    </mat-form-field>
 
-<mat-card class="info-card">
-  <mat-card-header>
-    <mat-card-title>GUID Information</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p matTooltip="UUID version number">
-      <strong>Version:</strong> {{ getUUIDVersion() }}
-    </p>
-    <p matTooltip="UUID variant type">
-      <strong>Variant:</strong> {{ getUUIDVariant() }}
-    </p>
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>GUID Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p matTooltip="UUID version number">
+          <strong>Version:</strong> {{ getUUIDVersion() }}
+        </p>
+        <p matTooltip="UUID variant type">
+          <strong>Variant:</strong> {{ getUUIDVariant() }}
+        </p>
 
-    <p matTooltip="Standard UUID format">
-      <strong>Standard Format:</strong> {{ getStandardFormat() }}
-    </p>
-    <p matTooltip="UUID as integer">
-      <strong>Integer Value:</strong> {{ getIntegerValue() }}
-    </p>
-    <p matTooltip="Version description">
-      <strong>Version Type:</strong> {{ getVersionDescription() }}
-    </p>
-    <p matTooltip="Variant specification">
-      <strong>Variant Type:</strong> {{ getVariantDescription() }}
-    </p>
-    <p matTooltip="Hexadecimal contents">
-      <strong>Contents:</strong> {{ getHexContents() }}
-    </p>
-  </mat-card-content>
-</mat-card>
+        <p matTooltip="Standard UUID format">
+          <strong>Standard Format:</strong> {{ getStandardFormat() }}
+        </p>
+        <p matTooltip="UUID as integer">
+          <strong>Integer Value:</strong> {{ getIntegerValue() }}
+        </p>
+        <p matTooltip="Version description">
+          <strong>Version Type:</strong> {{ getVersionDescription() }}
+        </p>
+        <p matTooltip="Variant specification">
+          <strong>Variant Type:</strong> {{ getVariantDescription() }}
+        </p>
+        <p matTooltip="Hexadecimal contents">
+          <strong>Contents:</strong> {{ getHexContents() }}
+        </p>
+      </mat-card-content>
+    </mat-card>

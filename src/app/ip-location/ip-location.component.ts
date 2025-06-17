@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -24,7 +24,6 @@ interface IpInfo {
   selector: 'app-ip-location',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -32,7 +31,7 @@ interface IpInfo {
     MatIconModule,
     MatCardModule,
     MatProgressSpinnerModule
-  ],
+],
   templateUrl: './ip-location.component.html',
   styleUrls: ['./ip-location.component.scss']
 })
@@ -61,7 +60,7 @@ export class IpLocationComponent implements OnInit {
           this.ipAddress = data.ip;
           this.loading = false;
         },
-        error: (error) => {
+        error: () => {
           this.error = 'Failed to fetch IP information';
           this.loading = false;
         }
@@ -79,7 +78,7 @@ export class IpLocationComponent implements OnInit {
           this.ipInfo = data;
           this.loading = false;
         },
-        error: (error) => {
+        error: () => {
           this.error = 'Failed to fetch IP information';
           this.loading = false;
         }

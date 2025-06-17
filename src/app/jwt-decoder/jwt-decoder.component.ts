@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -14,7 +14,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   selector: 'app-jwt-decoder',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -22,7 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatIconModule,
     MatCardModule,
     MatTooltipModule
-  ],
+],
   templateUrl: './jwt-decoder.component.html',
   styleUrls: ['./jwt-decoder.component.scss']
 })
@@ -61,8 +60,7 @@ export class JwtDecoderComponent {
   private base64UrlDecode(input: string): string {
     const base64 = input.replace(/-/g, '+').replace(/_/g, '/');
     const padding = '='.repeat((4 - (base64.length % 4)) % 4);
-    const decoded = atob(base64 + padding);
-    return decoded;
+    return atob(base64 + padding);
   }
 
   private prettyPrint(json: string): string {
