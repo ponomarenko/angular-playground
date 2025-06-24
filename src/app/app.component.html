@@ -1,46 +1,19 @@
 <header class="header">
   <nav class="nav-container">
     <ul class="nav-list">
-      <li class="nav-item">
-        <a routerLink="/uuid"
-           routerLinkActive="active"
-           class="nav-link"
-           [routerLinkActiveOptions]="{exact: true}">
-          UUID Generator
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/url-encoder"
-           routerLinkActive="active"
-           class="nav-link"
-           [routerLinkActiveOptions]="{exact: true}">
-          URL Encoder
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/ip-location"
-           routerLinkActive="active"
-           class="nav-link"
-           [routerLinkActiveOptions]="{exact: true}">
-          IP Location
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/unix-timestamp"
-           routerLinkActive="active"
-           class="nav-link"
-           [routerLinkActiveOptions]="{exact: true}">
-          Unix Timestamp
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/jwt-decoder"
-           routerLinkActive="active"
-           class="nav-link"
-           [routerLinkActiveOptions]="{exact: true}">
-          JWT Decoder
-        </a>
-      </li>
+      @for (navItem of navigationItems; track navItem.path) {
+        <li class="nav-item">
+          <a [routerLink]="navItem.path"
+             routerLinkActive="active"
+             class="nav-link"
+             [routerLinkActiveOptions]="{exact: true}">
+            @if (navItem.icon) {
+              <i [class]="navItem.icon"></i>
+            }
+            {{ navItem.label }}
+          </a>
+        </li>
+      }
     </ul>
   </nav>
 </header>

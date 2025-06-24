@@ -1,0 +1,195 @@
+<div class="container">
+  <div class="warning-banner">
+    <mat-icon>info</mat-icon>
+    <span>
+      Enter a Vehicle Identification Number (VIN) to decode its information. This decoder supports all regional standards including North American, European, Asian, South American, and African VINs. It provides detailed information about the vehicle's manufacturer, attributes, and verification.
+    </span>
+  </div>
+
+  <div class="decoder-section">
+    <form [formGroup]="vinForm" novalidate>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>VIN Number</mat-label>
+        <input
+          matInput
+          formControlName="vinNumber"
+          placeholder="Enter a 17-character VIN (e.g., 1HGCM82633A004352)"
+          maxlength="17"
+          autocomplete="off"
+          [class.loading]="isLoading">
+
+        <div matSuffix class="suffix-container">
+          @if (isLoading) {
+            <mat-spinner diameter="20"></mat-spinner>
+          }
+
+          @if (vinForm.get('vinNumber')?.value && !isLoading) {
+            <button mat-icon-button (click)="clearAll()" type="button" matTooltip="Clear">
+              <mat-icon>clear</mat-icon>
+            </button>
+          }
+        </div>
+
+        @if (vinErrors.length > 0) {
+          <mat-error>
+            @for (error of vinErrors; track error) {
+              <div>{{ error }}</div>
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <div class="button-row">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="decodeVin()"
+          [disabled]="!isValid"
+          type="button">
+          <mat-icon>search</mat-icon>
+          Decode VIN
+        </button>
+      </div>
+    </form>
+
+    <!-- Success Result -->
+    @if (hasValidResult) {
+      <div class="decoded-sections">
+        <mat-card class="decoded-section">
+          <mat-card-header>
+            <div mat-card-avatar class="success-avatar">
+              <mat-icon>check_circle</mat-icon>
+            </div>
+            <mat-card-title>VIN DECODED SUCCESSFULLY</mat-card-title>
+            <mat-card-subtitle>{{ vinForm.get('vinNumber')?.value }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="vin-details">
+              <div class="vin-section">
+                <h3>
+                  <mat-icon>location_on</mat-icon>
+                  Basic Information
+                </h3>
+                <div class="vin-detail-item">
+                  <span class="detail-label">World Manufacturer Identifier (WMI):</span>
+                  <span class="detail-value">{{ decodedVin!.wmi }}</span>
+                </div>
+                <div class="vin-detail-item">
+                  <span class="detail-label">Region:</span>
+                  <span class="detail-value">{{ decodedVin!.region }}</span>
+                </div>
+                <div class="vin-detail-item">
+                  <span class="detail-label">Country:</span>
+                  <span class="detail-value">{{ decodedVin!.country }}</span>
+                </div>
+                <div class="vin-detail-item">
+                  <span class="detail-label">Manufacturer:</span>
+                  <span class="detail-value">{{ decodedVin!.manufacturer }}</span>
+                </div>
+              </div>
+
+              <div class="vin-section">
+                <h3>
+                  <mat-icon>directions_car</mat-icon>
+                  Vehicle Attributes
+                </h3>
+                <div class="vin-detail-item">
+                  <span class="detail-label">Vehicle Descriptor Section (VDS):</span>
+                  <span class="detail-value">{{ decodedVin!.vds }}</span>
+                </div>
+                <div class="vin-detail-item">
+                  <span class="detail-label">Body Type:</span>
+                  <span class="detail-value">{{ decodedVin!.vehicleAttributes.bodyType }}</span>
+                </div>
+                <div class="vin-detail-item">
+                  <span class="detail-label">Engine:</span>
+                  <span class="detail-value">{{ decodedVin!.vehicleAttributes.engine }}</span>
+                </div>
+                <div class="vin-detail-item">
+                  <span class="detail-label">Transmission:</span>
+                  <span class="detail-value">{{ decodedVin!.vehicleAttributes.transmission }}</span>
+                </div>
+                <div class="vin-detail-item">
+                  <span class="detail-label">Series:</span>
+                  <span class="detail-value">{{ decodedVin!.vehicleAttributes.series }}</span>
+                </div>
+              </div>
+
+              <div class="vin-section">
+                <h3>
+                  <mat-icon>verified</mat-icon>
+                  Verification & Details
+                </h3>
+                <div class="vin-detail-item">
+                  <span class="detail-label">Check Digit:</span>
+                  <span class="detail-value">{{ decodedVin!.checkDigit }}</span>
+                  <span class="check-digit-status"
+                        [class.valid]="decodedVin!.isValidCheckDigit"
+                        [class.invalid]="!decodedVin!.isValidCheckDigit">
+                    <mat-icon>{{ decodedVin!.isValidCheckDigit ? 'check' : 'close' }}</mat-icon>
+                    {{ decodedVin!.isValidCheckDigit ? 'Valid' : 'Invalid' }}
+                  </span>
+                </div>
+                <div class="vin-detail-item">
+                  <span class="detail-label">Model Year:</span>
+                  <span class="detail-value">{{ decodedVin!.year }}</span>
+                </div>
+                <div class="vin-detail-item">
+                  <span class="detail-label">Plant Code:</span>
+                  <span class="detail-value">{{ decodedVin!.plantCode }}</span>
+                </div>
+                <div class="vin-detail-item">
+                  <span class="detail-label">Sequential Number:</span>
+                  <span class="detail-value">{{ decodedVin!.sequentialNumber }}</span>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button
+              mat-button
+              color="primary"
+              (click)="copyToClipboard(vinForm.get('vinNumber')?.value)"
+              matTooltip="Copy VIN to clipboard">
+              <mat-icon>content_copy</mat-icon>
+              Copy VIN
+            </button>
+            <button
+              mat-button
+              (click)="clearAll()"
+              matTooltip="Clear and start over">
+              <mat-icon>refresh</mat-icon>
+              Clear
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    }
+
+    <!-- Error Display -->
+    @if (hasErrors) {
+      <mat-card class="error-card">
+        <mat-card-header>
+          <div mat-card-avatar class="error-avatar">
+            <mat-icon>error</mat-icon>
+          </div>
+          <mat-card-title>Decoding Errors</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @for (error of decodedVin!.errors!; track error) {
+            <div class="error-message">
+              <mat-icon>warning</mat-icon>
+              {{ error }}
+            </div>
+          }
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="primary" (click)="clearAll()">
+            <mat-icon>refresh</mat-icon>
+            Try Again
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+</div>
