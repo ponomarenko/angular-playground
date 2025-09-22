@@ -1,0 +1,151 @@
+<div id="map"></div>
+
+<!-- GPS Spoofing Detection Overlay -->
+<div class="gps-testing-overlay">
+  <div class="overlay-header">
+    <h3>GPS Testing & Spoofing Detection</h3>
+  </div>
+
+  <div class="overlay-content">
+    <!-- Current GPS Status -->
+    <div class="status-section">
+      <h4>Current Status</h4>
+      <div class="status-item">
+        <span class="label">Location:</span>
+        <span class="value"
+          >{{ currentLocation.lat }}, {{ currentLocation.lng }}</span
+        >
+      </div>
+      <div class="status-item">
+        <span class="label">Accuracy:</span>
+        <span class="value">±{{ gpsAccuracy }}m</span>
+      </div>
+      <div class="status-item">
+        <span class="label">Speed:</span>
+        <span class="value">{{ currentSpeed }} km/h</span>
+      </div>
+      <div class="status-item">
+        <span class="label">Spoofing Risk:</span>
+        <span class="value risk-{{ spoofingRiskLevel }}">{{
+          spoofingRiskLevel.toUpperCase()
+        }}</span>
+      </div>
+    </div>
+
+    <!-- Testing Controls -->
+    <div class="controls-section">
+      <h4>GPS Testing Controls</h4>
+
+      <!-- Manual Location Input -->
+      <div class="control-group">
+        <label>Simulate Location:</label>
+        <div class="location-inputs">
+          <input
+            type="number"
+            [(ngModel)]="simulatedLat"
+            placeholder="Latitude"
+            step="0.000001"
+            class="coordinate-input"
+          />
+          <input
+            type="number"
+            [(ngModel)]="simulatedLng"
+            placeholder="Longitude"
+            step="0.000001"
+            class="coordinate-input"
+          />
+          <button class="apply-btn" (click)="applySimulatedLocation()">
+            Apply
+          </button>
+        </div>
+      </div>
+
+      <!-- Preset Scenarios -->
+      <div class="control-group">
+        <label>Quick Test Scenarios:</label>
+        <div class="scenario-buttons">
+          <button class="scenario-btn" (click)="simulateScenario('teleport')">
+            Instant Teleport
+          </button>
+          <button
+            class="scenario-btn"
+            (click)="simulateScenario('impossible-speed')"
+          >
+            Impossible Speed
+          </button>
+          <button
+            class="scenario-btn"
+            (click)="simulateScenario('signal-jump')"
+          >
+            Signal Jump
+          </button>
+          <button
+            class="scenario-btn"
+            (click)="simulateScenario('indoor-outdoor')"
+          >
+            Indoor/Outdoor Switch
+          </button>
+        </div>
+      </div>
+
+      <!-- Speed Simulation -->
+      <div class="control-group">
+        <label>Simulate Speed: {{ simulatedSpeed }} km/h</label>
+        <input
+          type="range"
+          min="0"
+          max="200"
+          [(ngModel)]="simulatedSpeed"
+          class="speed-slider"
+        />
+      </div>
+
+      <!-- Accuracy Simulation -->
+      <div class="control-group">
+        <label>Simulate GPS Accuracy: ±{{ simulatedAccuracy }}m</label>
+        <input
+          type="range"
+          min="1"
+          max="100"
+          [(ngModel)]="simulatedAccuracy"
+          class="accuracy-slider"
+        />
+      </div>
+    </div>
+
+    <!-- Detection Results -->
+    <div class="detection-section">
+      <h4>Spoofing Detection Results</h4>
+      <div class="detection-alerts" *ngIf="detectionAlerts.length > 0">
+        <div
+          class="alert"
+          *ngFor="let alert of detectionAlerts"
+          [class.alert-high]="alert.severity === 'high'"
+          [class.alert-medium]="alert.severity === 'medium'"
+          [class.alert-low]="alert.severity === 'low'"
+        >
+          <span class="alert-time">{{
+            alert.timestamp | date : "HH:mm:ss"
+          }}</span>
+          <span class="alert-message">{{ alert.message }}</span>
+        </div>
+      </div>
+      <div class="no-alerts" *ngIf="detectionAlerts.length === 0">
+        No spoofing alerts detected
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="action-btn reset" (click)="resetToRealGPS()">
+        Reset to Real GPS
+      </button>
+      <button class="action-btn clear" (click)="clearAlerts()">
+        Clear Alerts
+      </button>
+      <button class="action-btn export" (click)="exportTestData()">
+        Export Test Data
+      </button>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,7 @@ import { IpLocationComponent } from './ip-location/ip-location.component';
 import { UnixTimestampComponent } from './unix-timestamp/unix-timestamp.component';
 import { JwtDecoderComponent } from './jwt-decoder/jwt-decoder.component';
 import { VinDecoderComponent } from './vin-decoder/vin-decoder.component';
+import { LeafletComponent } from './leaflet/leaflet.component';
 
 export const routes: Routes = [
   { path: 'uuid', component: UuidComponent },
@@ -13,4 +14,5 @@ export const routes: Routes = [
   { path: 'unix-timestamp', component: UnixTimestampComponent },
   { path: 'jwt-decoder', component: JwtDecoderComponent },
   { path: 'vin-decoder', component: VinDecoderComponent },
+  { path: 'leaflet', component: LeafletComponent },
 ];

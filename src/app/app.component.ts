@@ -21,6 +21,7 @@ export class AppComponent {
     { path: '/ip-location', label: 'IP Location' },
     { path: '/unix-timestamp', label: 'Unix Timestamp' },
     { path: '/jwt-decoder', label: 'JWT Decoder' },
-    { path: '/vin-decoder', label: 'VIN Decoder' }
+    { path: '/vin-decoder', label: 'VIN Decoder' },
+    { path: '/leaflet', label: 'Leaflet' }
   ];
 }
