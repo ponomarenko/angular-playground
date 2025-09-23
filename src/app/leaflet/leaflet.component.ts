@@ -1,7 +1,8 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SafeLeafletCenterService } from '../services/safe-leaflet-center.service';
+import { SafeLeafletCenterService } from './services/safe-leaflet-center.service';
+import { GeoCalculationService } from './services/geo-calculation.service';
 import * as L from 'leaflet';
 
 interface DetectionAlert {
@@ -24,7 +25,7 @@ interface LocationData {
   templateUrl: './leaflet.component.html',
   styleUrls: ['./leaflet.component.scss'],
   imports: [ReactiveFormsModule, FormsModule, CommonModule],
-  providers: [SafeLeafletCenterService],
+  providers: [GeoCalculationService, SafeLeafletCenterService],
 })
 export class LeafletComponent implements AfterViewInit {
   markers: L.Marker[] = [
@@ -50,9 +51,9 @@ export class LeafletComponent implements AfterViewInit {
   private simulatedLocationMarker?: L.Marker;
 
   constructor(
-    private safeCenterService: SafeLeafletCenterService
-  ) {
-  }
+    private safeCenterService: SafeLeafletCenterService,
+    private geoCalculationService: GeoCalculationService
+  ) {}
 
   ngAfterViewInit(): void {
     this.map = L.map('map').setView(
@@ -347,7 +348,7 @@ export class LeafletComponent implements AfterViewInit {
     const [prev, current] = recent;
 
     // Calculate speed between points
-    const distance = this.calculateDistance(
+    const distance = this.geoCalculationService.haversine(
       prev.lat,
       prev.lng,
       current.lat,
@@ -461,26 +462,6 @@ export class LeafletComponent implements AfterViewInit {
     if (this.locationHistory.length > 100) {
       this.locationHistory = this.locationHistory.slice(-100);
     }
-  }
-
-  private calculateDistance(
-    lat1: number,
-    lon1: number,
-    lat2: number,
-    lon2: number
-  ): number {
-    const R = 6371e3; // Earth radius in meters
-    const φ1 = (lat1 * Math.PI) / 180;
-    const φ2 = (lat2 * Math.PI) / 180;
-    const Δφ = ((lat2 - lat1) * Math.PI) / 180;
-    const Δλ = ((lon2 - lon1) * Math.PI) / 180;
-
-    const a =
-      Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-      Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return R * c; // Distance in meters
   }
 
   private updateSimulatedLocationMarker() {

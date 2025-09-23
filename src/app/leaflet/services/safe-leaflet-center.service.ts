@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { GeoCalculationService } from './geo-calculation.service';
 import * as L from 'leaflet';
 
 export interface SafeCenterOptions {
@@ -24,6 +25,8 @@ export class SafeLeafletCenterService {
   private lastTime!: number;
   private history: L.LatLng[] = [];
 
+  constructor(private geoCalculationService: GeoCalculationService) {}
+
   initialize(map: L.Map, options: SafeCenterOptions = {}) {
     this.map = map;
     this.maxSpeed = options.maxSpeed || 50;
@@ -32,23 +35,6 @@ export class SafeLeafletCenterService {
     this.lastCenter = map.getCenter();
     this.lastTime = Date.now();
     this.history = [this.lastCenter];
-  }
-
-  private haversine(
-    lat1: number,
-    lon1: number,
-    lat2: number,
-    lon2: number
-  ): number {
-    const R = 6371000;
-    const toRad = (deg: number) => (deg * Math.PI) / 180;
-    const dLat = toRad(lat2 - lat1);
-    const dLon = toRad(lon2 - lon1);
-    const a =
-      Math.sin(dLat / 2) ** 2 +
-      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
   }
 
   private medianCenter(): L.LatLng {
@@ -71,7 +57,7 @@ export class SafeLeafletCenterService {
   setCenter(lat: number, lng: number): boolean {
     const now = Date.now();
     const dt = (now - this.lastTime) / 1000;
-    const dist = this.haversine(
+    const dist = this.geoCalculationService.haversine(
       this.lastCenter.lat,
       this.lastCenter.lng,
       lat,
@@ -90,7 +76,7 @@ export class SafeLeafletCenterService {
     }
 
     const median = this.medianCenter();
-    const medianDist = this.haversine(median.lat, median.lng, lat, lng);
+    const medianDist = this.geoCalculationService.haversine(median.lat, median.lng, lat, lng);
     if (medianDist > 200) {
       console.warn(
         `⚠️ Coordinate deviates from trend (${medianDist.toFixed(1)} m)`
